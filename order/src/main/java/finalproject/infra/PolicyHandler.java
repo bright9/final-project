@@ -22,5 +22,21 @@ public class PolicyHandler {
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='OutOfStock'"
+    )
+    public void wheneverOutOfStock_UpdateStatus(
+        @Payload OutOfStock outOfStock
+    ) {
+        OutOfStock event = outOfStock;
+        System.out.println(
+            "\n\n##### listener UpdateStatus : " + outOfStock + "\n\n"
+        );
+
+        // Sample Logic //
+        Order.updateStatus(event);
+    }
 }
 //>>> Clean Arch / Inbound Adaptor

@@ -1,6 +1,7 @@
 package finalproject.domain;
 
 import finalproject.InventoryApplication;
+import finalproject.domain.OutOfStock;
 import finalproject.domain.StockDecreased;
 import java.time.LocalDate;
 import java.util.Date;
@@ -27,6 +28,9 @@ public class Inventory {
     public void onPostUpdate() {
         StockDecreased stockDecreased = new StockDecreased(this);
         stockDecreased.publishAfterCommit();
+
+        OutOfStock outOfStock = new OutOfStock(this);
+        outOfStock.publishAfterCommit();
     }
 
     public static InventoryRepository repository() {
@@ -46,6 +50,8 @@ public class Inventory {
 
         StockDecreased stockDecreased = new StockDecreased(inventory);
         stockDecreased.publishAfterCommit();
+        OutOfStock outOfStock = new OutOfStock(inventory);
+        outOfStock.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -57,6 +63,8 @@ public class Inventory {
 
             StockDecreased stockDecreased = new StockDecreased(inventory);
             stockDecreased.publishAfterCommit();
+            OutOfStock outOfStock = new OutOfStock(inventory);
+            outOfStock.publishAfterCommit();
 
          });
         */

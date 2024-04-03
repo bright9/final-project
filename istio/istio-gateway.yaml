@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: bookinfo-gateway
+  name: my-gateway
 spec:
   # The selector matches the ingress gateway pod labels.
   # If you installed Istio using Helm following the standard documentation, this would be "istio=ingress"
@@ -18,26 +18,26 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: compuzone
+  name: my-vs
 spec:
   hosts:
   - "*"
   gateways:
-  - compuzone-gateway
+  - my-gateway
   http:
   - match:
     - uri:
-        exact: /productpage
-    - uri:
-        prefix: /static
-    - uri:
-        exact: /login
-    - uri:
-        exact: /logout
-    - uri:
-        prefix: /api/v1/products
+        prefix: /product
     route:
     - destination:
-        host: productpage
+        host: user09-order
         port:
-          number: 9080
+          number: 8080
+  - match:
+    - uri:
+        prefix: /inventory
+    route:
+    - destination:
+        host: user09-inventory
+        port:
+          number: 8080

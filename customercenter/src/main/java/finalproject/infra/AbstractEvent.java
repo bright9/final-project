@@ -2,7 +2,7 @@ package finalproject.infra;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import finalproject.CustomerCenterApplication;
+import finalproject.CustomercenterApplication;
 import finalproject.config.kafka.KafkaProcessor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.messaging.MessageChannel;
@@ -32,7 +32,7 @@ public class AbstractEvent {
         /**
          * spring streams 방식
          */
-        KafkaProcessor processor = CustomerCenterApplication.applicationContext.getBean(
+        KafkaProcessor processor = CustomercenterApplication.applicationContext.getBean(
             KafkaProcessor.class
         );
         MessageChannel outputChannel = processor.outboundTopic();

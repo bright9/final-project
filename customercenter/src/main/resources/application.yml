@@ -29,7 +29,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: CustomerCenter
+          group: customercenter
 #<<< EDA / Topic Name
           destination: finalproject
 #>>> EDA / Topic Name
@@ -74,7 +74,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: CustomerCenter
+          group: customercenter
           destination: finalproject
           contentType: application/json
         event-out:

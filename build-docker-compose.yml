@@ -51,7 +51,7 @@ services:
       - ./inventory:/usr/src
       - ./maven-repo:/root/.m2
       
-  CustomerCenter:
+  customercenter:
     depends_on: 
       - kafka
     image: adoptopenjdk/maven-openjdk11:latest
@@ -62,6 +62,20 @@ services:
       - 8084:8084
     working_dir: /usr/src
     volumes:
-      - ./CustomerCenter:/usr/src
+      - ./customercenter:/usr/src
+      - ./maven-repo:/root/.m2
+      
+  delivery:
+    depends_on: 
+      - kafka
+    image: adoptopenjdk/maven-openjdk11:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    command: mvn spring-boot:run
+    ports:
+      - 8085:8085
+    working_dir: /usr/src
+    volumes:
+      - ./delivery:/usr/src
       - ./maven-repo:/root/.m2
       

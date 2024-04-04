@@ -83,22 +83,62 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: CustomerCenter
+  name: customercenter
   labels:
-    app: CustomerCenter
+    app: customercenter
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: CustomerCenter
+      app: customercenter
   template:
     metadata:
       labels:
-        app: CustomerCenter
+        app: customercenter
     spec:
       containers:
-        - name: CustomerCenter
-          image: username/CustomerCenter:latest
+        - name: customercenter
+          image: username/customercenter:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery
+  labels:
+    app: delivery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery
+  template:
+    metadata:
+      labels:
+        app: delivery
+    spec:
+      containers:
+        - name: delivery
+          image: username/delivery:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -159,13 +199,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: CustomerCenter
+  name: customercenter
   labels:
-    app: CustomerCenter
+    app: customercenter
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: CustomerCenter
+    app: customercenter
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: delivery
+  labels:
+    app: delivery
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: delivery
 

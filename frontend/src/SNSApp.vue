@@ -59,6 +59,18 @@
 
 
 
+                    <v-list-item
+                        class="px-2"
+                        key="deliveries"
+                        to="/deliveries/deliveries"
+                        @click="changeUrl()"
+                        color="primary"
+                        style="font-weight:700;"
+                    >
+                        Delivery
+                    </v-list-item>
+
+
                 </v-list>
             </v-navigation-drawer>
         </div>
@@ -149,6 +161,13 @@ export default {
                 description: '', 
                 key: 'inventories', 
                 route: '/inventories/inventories',
+                ImageUrl: '',
+            },
+            { 
+                title: 'Delivery', 
+                description: '', 
+                key: 'deliveries', 
+                route: '/deliveries/deliveries',
                 ImageUrl: '',
             },
             

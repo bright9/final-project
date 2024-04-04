@@ -14,8 +14,6 @@ public class OutOfStock extends AbstractEvent {
     private Long id;
     private Long stock;
     private Long orderId;
-    private Long stock;
-    private Long orderId;
 
     public OutOfStock(Inventory aggregate) {
         super(aggregate);
